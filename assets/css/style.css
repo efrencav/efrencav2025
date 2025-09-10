@@ -4553,3 +4553,26 @@ Portfolio Listing
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+/* Icon box hover/focus outline */
+.icon-box {
+  /* Optional: keeps layout steady if you already have borders */
+  border: 1px solid transparent;
+  border-radius: 8px;              /* tweak or remove if you want square corners */
+  transition:
+    outline-color .2s ease,
+    outline-offset .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+.icon-box:hover {
+  outline: 3px solid #ee4137;      /* your orange */
+  outline-offset: 2px;             /* separate the outline from the element */
+}
+
+/* Accessibility: show the same state when using keyboard */
+.icon-box:focus-visible {
+  outline: 3px solid #ee4137;
+  outline-offset: 2px;
+}
