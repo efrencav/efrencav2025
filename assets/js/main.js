@@ -20,7 +20,8 @@
     //Contact form handling: use Netlify native posts when present, otherwise fall back to AJAX email sender
     $('.contact-form').each(function () {
         var $form = $(this);
-        var usesNetlify = $form.data('netlify') === true || $form.attr('data-netlify') === "true";
+        // Treat any Netlify hint (data-netlify or netlify attribute) as native handling to avoid AJAX errors
+        var usesNetlify = $form.is('[data-netlify],[netlify]');
 
         if (!usesNetlify) {
             $form.on('submit', function (e) {
