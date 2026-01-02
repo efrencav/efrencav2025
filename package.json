@@ -1,0 +1,10 @@
+{
+  "name": "efrencav2025-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site functions for efrencav2025",
+  "license": "MIT",
+  "dependencies": {
+    "nodemailer": "^6.9.8"
+  }
+}

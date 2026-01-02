@@ -1,0 +1,8 @@
+[functions]
+directory = "netlify/functions"
+node_bundler = "esbuild"
+
+# Trigger the submission-created event function for Netlify form submissions
+[[functions]]
+name = "submission-created"
+events = ["submission_created"]
