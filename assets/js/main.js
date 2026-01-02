@@ -17,9 +17,17 @@
     //Skills fill
     skillsFill();
 
-    //Send Mail Action
-    $('.contact-form [type="submit"]').on('click', function () {
-        SendMail();
+    //Contact form handling: use Netlify native posts when present, otherwise fall back to AJAX email sender
+    $('.contact-form').each(function () {
+        var $form = $(this);
+        var usesNetlify = $form.data('netlify') === true || $form.attr('data-netlify') === "true";
+
+        if (!usesNetlify) {
+            $form.on('submit', function (e) {
+                e.preventDefault();
+                SendMail();
+            });
+        }
     });
 
     //Fit Video
