@@ -17,12 +17,16 @@
     //Skills fill
     skillsFill();
 
-    //Contact form handling: rely on Netlify/native posts; keep AJAX fallback only for non-Netlify forms
+    //Contact form handling: rely on Netlify/native posts; keep AJAX fallback only for non-Netlify forms.
+    //Additionally, clear any existing submit handlers so the form can post normally.
     $('.contact-form').each(function () {
         var $form = $(this);
         var usesNetlify = typeof $form.attr('data-netlify') !== 'undefined' ||
                           typeof $form.attr('netlify') !== 'undefined' ||
                           $form.find('input[name="form-name"]').length > 0;
+
+        // Make sure no other submit handler interferes with Netlify submission
+        $form.off('submit');
 
         if (usesNetlify) {
             // Let the browser submit normally so Netlify can process the form
