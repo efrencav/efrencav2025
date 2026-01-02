@@ -17,18 +17,22 @@
     //Skills fill
     skillsFill();
 
-    //Contact form handling: use Netlify native posts when present, otherwise fall back to AJAX email sender
+    //Contact form handling: rely on Netlify/native posts; keep AJAX fallback only for non-Netlify forms
     $('.contact-form').each(function () {
         var $form = $(this);
-        // Treat any Netlify hint (data-netlify or netlify attribute) as native handling to avoid AJAX errors
-        var usesNetlify = $form.is('[data-netlify],[netlify]');
+        var usesNetlify = typeof $form.attr('data-netlify') !== 'undefined' ||
+                          typeof $form.attr('netlify') !== 'undefined' ||
+                          $form.find('input[name="form-name"]').length > 0;
 
-        if (!usesNetlify) {
-            $form.on('submit', function (e) {
-                e.preventDefault();
-                SendMail();
-            });
+        if (usesNetlify) {
+            // Let the browser submit normally so Netlify can process the form
+            return;
         }
+
+        $form.on('submit', function (e) {
+            e.preventDefault();
+            SendMail();
+        });
     });
 
     //Fit Video
@@ -317,7 +321,7 @@
                             error = "Server is currently unavailable!";
                             break;
                         default:
-                            error = "Unespected error, please try again later.";
+                            error = "Unexpected error, please try again later.";
                     }
                     if (error) {
                         alert(error);
